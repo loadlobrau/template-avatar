@@ -52,7 +52,51 @@ Use Unity 2022.3.22f1 to open the project. Press "OK" on the dialog that offers 
 <details>
 <summary>
 
-## 4. Load the Example Avatar
+## 4. Import Your Avatar Files (.fbx + textures)
+
+</summary>
+
+Unity (and the VRChat SDK) only imports model files it understands. For avatars, that means you should import the **.fbx** plus any textures/materials that came with it. We recommend keeping a clean, predictable folder layout so drag-and-drop works every time:
+
+```
+Assets/
+  Avatars/
+    YourAvatarName/
+      Models/        <-- put the .fbx here
+      Textures/      <-- put PNG/TGA/etc here
+      Materials/     <-- optional, if you author materials manually
+```
+
+**Where does an `.xbf` go?**  
+Unity does **not** recognize `.xbf` files by default, so dropping one into the project will not load anything unless you have a custom importer or a tool/plugin that uses it. If your `.xbf` is a companion file from the same tool that exported your `.fbx`, place it **next to the .fbx** inside `Assets/Avatars/YourAvatarName/Models/` so you keep related files together. If you expect Unity to load the avatar from the `.xbf`, first convert/export it to `.fbx` (or install the importer your tool provides) before dragging it into Unity.
+
+</details>
+
+<details>
+<summary>
+
+## 5. (Optional) Run the Automatic Optimizer (Python + Blender)
+
+</summary>
+
+If you want an automated pass to reduce mesh complexity for Quest-style targets, this repo includes a Blender Python script at `Tools/optimize_avatar.py`.
+
+**Requirements**
+* Blender installed locally (the script runs inside Blender, not Unity).
+
+**Usage**
+```
+blender --background --python Tools/optimize_avatar.py -- /path/to/YourAvatar.fbx
+```
+
+The script exports a new FBX alongside your input file named `<OriginalName>_QUEST_SMART.fbx`. It skips meshes with shape keys (visemes), preserves meshes with keywords like `head`, `face`, or `hand`, and applies more aggressive decimation to accessory/prop-like meshes.
+
+</details>
+
+<details>
+<summary>
+
+## 6. Load the Example Avatar
 
 </summary>
 
@@ -69,7 +113,7 @@ Then modify the avatar however you'd like - you can [read all about our Avatars 
 <details>
 <summary>
 
-## 5. Test Your Avatar
+## 7. Test Your Avatar
 
 </summary>
 
@@ -90,7 +134,7 @@ You should now be testing your custom avatar!
 <details>
 <summary>
 
-## 6. Publish Your Avatar
+## 8. Publish Your Avatar
 
 </summary>
 
